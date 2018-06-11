@@ -2,6 +2,7 @@
 
 # Começando com os imports
 import csv
+#%%
 import matplotlib.pyplot as plt
 
 # Vamos ler os dados como uma lista

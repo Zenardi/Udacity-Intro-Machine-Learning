@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"python.pythonPath": "C:\\Users\\zee8ca\\AppData\\Local\\Continuum\\anaconda3\\python.exe",
+		"jupyter.notebook.startupFolder": "C:\\Users\\zee8ca\\AppData\\Local\\Continuum\\anaconda3\\Scripts"
+	}
+}

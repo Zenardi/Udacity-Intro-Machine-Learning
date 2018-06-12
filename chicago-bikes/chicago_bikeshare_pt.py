@@ -2,7 +2,6 @@
 
 # Começando com os imports
 import csv
-#%%
 import matplotlib.pyplot as plt
 
 # Vamos ler os dados como uma lista
@@ -64,6 +63,14 @@ input("Aperte Enter para continuar...")
 # TAREFA 3
 # TODO: Crie uma função para adicionar as colunas(features) de uma lista em outra lista, na mesma ordem
 def column_to_list(data, index):
+    """
+    Funcao para adicionar uma coluna de uma lista em outra lista, na mesma ordem
+    Args:
+      data: Lista de data.
+      index: Nome da Coluna.
+    Returns:
+      Lista com a coluna especificada pelo index
+    """
     column_list = []
     # Dica: Você pode usar um for para iterar sobre as amostras, pegar a feature pelo seu índice, e dar append para uma lista
     for d in data:
@@ -109,6 +116,13 @@ input("Aperte Enter para continuar...")
 # TODO: Crie uma função para contar os gêneros. Retorne uma lista.
 # Isso deveria retornar uma lista com [count_male, count_female] (exemplo: [10, 15] significa 10 Masculinos, 15 Femininos)
 def count_gender(data_list):
+    """
+    Funcao para contar a quantidade de generos
+    Args:
+      data_list: Lista de dados do arquivo csv
+    Returns:
+      Lista com o total de generos (#male, #female)
+    """
     male = 0
     female = 0
     for d in data_list:
@@ -134,6 +148,13 @@ input("Aperte Enter para continuar...")
 # TODO: Crie uma função que pegue o gênero mais popular, e retorne este gênero como uma string.
 # Esperamos ver "Masculino", "Feminino", ou "Igual" como resposta.
 def most_popular_gender(data_list):
+    """
+    Funcao para conseguir o genero mais popular
+    Args:
+      data_list: Lista de dados da planilha
+    Returns:
+      Genero mais popular da lista
+    """
     male = 0
     female = 0
     for d in data_list:
@@ -175,6 +196,13 @@ input("Aperte Enter para continuar...")
 # TODO: Crie um gráfico similar para user_types. Tenha certeza que a legenda está correta.
 print("\nTAREFA 7: Verifique o gráfico!")
 def count_types(data_list):
+    """
+    Funcao para contar os tipos de usuarios registrados
+    Args:
+      data_list: lista contendo os tipos de usuarios
+    Returns:
+      Lista de assinantes e clientes (Ex. {#assinantes, #clientes})
+    """
     subscriber = 0
     customer = 0
     for d in data_list:
@@ -204,7 +232,7 @@ input("Aperte Enter para continuar...")
 male, female = count_gender(data_list)
 print("\nTAREFA 8: Por que a condição a seguir é Falsa?")
 print("male + female == len(data_list):", male + female == len(data_list))
-answer = "Pois há linhas onde as colunas Genero (Genre) é vazia."
+answer = "Pois há linhas onde a coluna Genero (Gender) é vazia."
 print("resposta:", answer)
 
 # ------------ NÃO MUDE NENHUM CÓDIGO AQUI ------------
@@ -272,11 +300,25 @@ input("Aperte Enter para continuar...")
 # TODO: Crie uma função para contar tipos de usuários, sem definir os tipos
 # para que nós possamos usar essa função com outra categoria de dados.
 print("Você vai encarar o desafio? (yes ou no)")
-answer = "no"
+answer = "yes"
 
 def count_items(column_list):
+    """
+    Funcao que conta os tipos de usuarios
+    Args:
+      column_list: lista dos tipos de usuarios
+    Returns:
+      Retorna os tipos de usuarios e a contagem de cada um.
+    """
     item_types = []
     count_items = []
+    for user_type in column_list:
+        if user_type not in item_types:
+            item_types.append(user_type)
+            count_items.append(1)
+        else:
+            index = item_types.index(user_type)
+            count_items[index] += 1
     return item_types, count_items
 
 

@@ -15,18 +15,32 @@ print("Ok!")
 # Vamos mudar o data_list para remover o cabeçalho dele.
 data_list = data_list[1:]
 
-# TAREFA 10
-# Gênero é fácil porque nós temos apenas algumas opções. E quanto a start_stations? Quantas opções ele tem?
-# TODO: Verifique quantos tipos de start_stations nós temos, usando set()
-start_stations = t3.column_to_list(data_list, 3)
-user_types = set(start_stations)
+# TAREFA 12 - Desafio! (Opcional)
+# TODO: Crie uma função para contar tipos de usuários, sem definir os tipos
+# para que nós possamos usar essa função com outra categoria de dados.
+print("Você vai encarar o desafio? (yes ou no)")
+answer = "yes"
 
-print("\nTAREFA 10: Imprimindo as start stations:")
-print(len(user_types))
-print(user_types)
+def count_items(column_list):
+    item_types = []
+    count_items = []
 
-# ------------ NÃO MUDE NENHUM CÓDIGO AQUI ------------
-assert len(user_types) == 582, "TAREFA 10: Comprimento errado de start stations."
+    for user_type in column_list:
+        if user_type not in item_types:
+            item_types.append(user_type)
+            count_items.append(1)
+        else:
+            index = item_types.index(user_type)
+            count_items[index] += 1
+    return item_types, count_items
+
+
+# if answer == "yes":
+    # ------------ NÃO MUDE NENHUM CÓDIGO AQUI ------------
+column_list = t3.column_to_list(data_list, -2)
+types, counts = count_items(column_list)
+print("\nTAREFA 11: Imprimindo resultados para count_items()")
+print("Tipos:", types, "Counts:", counts)
+assert len(types) == 3, "TAREFA 11: Há 3 tipos de gênero!"
+assert sum(counts) == 1551505, "TAREFA 11: Resultado de retorno incorreto!"
 # -----------------------------------------------------
-
-input("Aperte Enter para continuar...")

@@ -31,13 +31,8 @@ print("\n\nTAREFA 1: Imprimindo as primeiras 20 amostras")
 
 # Vamos mudar o data_list para remover o cabeçalho dele.
 data_list = data_list[1:]
-count = 0
-for sample in data_list:
-    if(count >= 20):
-        break
-    else:
-        print(str(sample))
-        count+=1
+for item in data_list[0:20]:
+    print(item)
 
 
 # Nós podemos acessar as features pelo índice
@@ -48,13 +43,9 @@ input("Aperte Enter para continuar...")
 # TODO: Imprima o `gênero` das primeiras 20 linhas
 
 print("\nTAREFA 2: Imprimindo o gênero das primeiras 20 amostras")
-count = 0
-for sample in data_list:
-    if(count >= 20):
-        break
-    else:
-        print(str(sample[6]))
-        count+=1
+for item in data_list[0:20]:
+    print(item[6])
+
 
 # Ótimo! Nós podemos pegar as linhas(samples) iterando com um for, e as colunas(features) por índices.
 # Mas ainda é difícil pegar uma coluna em uma lista. Exemplo: Lista com todos os gêneros
@@ -73,8 +64,8 @@ def column_to_list(data, index):
     """
     column_list = []
     # Dica: Você pode usar um for para iterar sobre as amostras, pegar a feature pelo seu índice, e dar append para uma lista
-    for d in data:
-        column_list.append(d[index])
+    for item in data:
+        column_list.append(item[index])
     return column_list
 
 
@@ -95,10 +86,10 @@ input("Aperte Enter para continuar...")
 male = 0
 female = 0
 
-for d in data_list:
-    if d[-2] == "Male":
+for sample in data_list:
+    if sample[-2] == "Male":
         male +=1
-    elif d[-2] == "Female":
+    elif sample[-2] == "Female":
         female +=1
 
 
@@ -125,10 +116,10 @@ def count_gender(data_list):
     """
     male = 0
     female = 0
-    for d in data_list:
-        if d[-2] == "Male":
+    for item in data_list:
+        if item[-2] == "Male":
             male += 1
-        elif d[-2] == "Female":
+        elif item[-2] == "Female":
             female += 1
     return [male, female]
 
@@ -157,10 +148,10 @@ def most_popular_gender(data_list):
     """
     male = 0
     female = 0
-    for d in data_list:
-        if d[-2] == "Male":
+    for item in data_list:
+        if item[-2] == "Male":
             male += 1
-        elif d[-2] == "Female":
+        elif item[-2] == "Female":
             female += 1
     
     if(male > female):
@@ -205,10 +196,10 @@ def count_types(data_list):
     """
     subscriber = 0
     customer = 0
-    for d in data_list:
-        if d[-3] == "Subscriber":
+    for item in data_list:
+        if item[-3] == "Subscriber":
             subscriber += 1
-        elif d[-3] == "Customer":
+        elif item[-3] == "Customer":
             customer += 1
     return [subscriber, customer]
 
@@ -244,17 +235,23 @@ input("Aperte Enter para continuar...")
 # TAREFA 9
 # TODO: Ache a duração de viagem Mínima, Máxima, Média, e Mediana.
 # Você não deve usar funções prontas parTODO isso, como max() e min().
+
+
+def CalculateMedian():
+    if len(trip_duration_list) % 2 == 0:
+        index = len(trip_duration_list) / 2
+        median_trip = (trip_duration_list[index] + trip_duration_list[index - 1]) / 2
+    else:
+        median_trip = trip_duration_list[int(len(trip_duration_list) / 2)]
+    return median_trip
+
 trip_duration_list = [int(x) for x in column_to_list(data_list, 2)]
 trip_duration_list.sort()
 min_trip = trip_duration_list[0]
 max_trip = trip_duration_list[-1]
 mean_trip = sum(trip_duration_list) / len(trip_duration_list)
 median_trip = 0.
-if len(trip_duration_list) % 2 == 0:
-    index = len(trip_duration_list) / 2
-    median_trip = (trip_duration_list[index] + trip_duration_list[index - 1]) / 2
-else:
-    median_trip = trip_duration_list[int(len(trip_duration_list) / 2)]
+median_trip = CalculateMedian()
 
 print("\nTAREFA 9: Imprimindo o mínimo, máximo, média, e mediana")
 print("Min: ", min_trip, "Max: ", max_trip, "Média: ", mean_trip, "Mediana: ", median_trip)

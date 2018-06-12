@@ -17,41 +17,18 @@ data_list = data_list[1:]
 
 # Vamos trabalhar com trip_duration (duração da viagem) agora. Não conseguimos tirar alguns valores dele.
 # TAREFA 9
-# TODO: Ache a duração de viagem Mínima, Máxima, Média, e Mediana.
 # Você não deve usar funções prontas parTODO isso, como max() e min().
-def my_median(lst):
-    sortedLst = sorted(lst)
-    lstLen = len(lst)
-    index = (lstLen - 1) // 2
-    print("Tamanho da Lista: " + str(lstLen))
-
-    if (lstLen % 2):
-        print(">>>>1")
-        return sortedLst[index + 1]
-    else:
-        print(">>>>2")
-        return (sortedLst[index] + sortedLst[index + 1])/2.0
-
-trip_duration_list = t3.column_to_list(data_list, 2)
-min_trip = 0.
-max_trip = 0.
-mean_trip = 0.
+trip_duration_list = [int(x) for x in t3.column_to_list(data_list, 2)]
+trip_duration_list.sort()
+min_trip = trip_duration_list[0]
+max_trip = trip_duration_list[-1]
+mean_trip = sum(trip_duration_list) / len(trip_duration_list)
 median_trip = 0.
-total = 0.
-list_len = len(trip_duration_list)
-
-for trip_duration in trip_duration_list:
-    if float(trip_duration) > max_trip or max_trip == 0:
-        max_trip = float(trip_duration)
-    elif float(trip_duration) < min_trip or min_trip == 0:
-        min_trip = float(trip_duration)
-
-    total += float(trip_duration)
-
-mean_trip = total / (len(trip_duration_list) - 1)
-
-median_trip = my_median(trip_duration_list)
-
+if len(trip_duration_list) % 2 == 0:
+    index = len(trip_duration_list) / 2
+    median_trip = (trip_duration_list[index] + trip_duration_list[index - 1]) / 2
+else:
+    median_trip = trip_duration_list[int(len(trip_duration_list) / 2)]
 
 print("\nTAREFA 9: Imprimindo o mínimo, máximo, média, e mediana")
 print("Min: ", min_trip, "Max: ", max_trip, "Média: ", mean_trip, "Mediana: ", median_trip)
@@ -64,3 +41,36 @@ assert round(median_trip) == 670, "TAREFA 9: median_trip com resultado errado!"
 # -----------------------------------------------------
 
 input("Aperte Enter para continuar...")
+
+
+# trip_duration_list = t3.column_to_list(data_list, 2)
+
+# min_trip = 0.
+# max_trip = 0.
+# sum_trip = 0.
+# mean_trip = 0.
+# median_trip = 0.
+
+# trip_duration_parsed_list = []
+# for index, value in enumerate(trip_duration_list):
+#     try:
+#         parsed = float(value)
+#         sum_trip += parsed
+#         trip_duration_parsed_list.append(parsed)
+#         if index == 0 or parsed < min_trip:
+#             min_trip = parsed
+#         if parsed > max_trip:
+#             max_trip = parsed
+#     except ValueError:
+#         print('Nao foi possivel fazer o parse do valor', value)
+#         raise
+
+# len_trip = len(trip_duration_parsed_list)
+# mean_trip = sum_trip / len_trip
+# trip_duration_parsed_list = sorted(trip_duration_parsed_list)
+
+# index = len_trip // 2
+# if len_trip % 2 > 0:
+#     median_trip = trip_duration_parsed_list[index]
+# else:
+#     median_trip = (trip_duration_parsed_list[index] + trip_duration_parsed_list[index - 1]) / 2

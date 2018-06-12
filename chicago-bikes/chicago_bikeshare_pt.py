@@ -13,17 +13,17 @@ with open("chicago.csv", "r") as file_read:
 print("Ok!")
 
 # Vamos verificar quantas linhas nós temos
-print("Número de linhas:")
-print(len(data_list))
+# print("Número de linhas:")
+# print(len(data_list))
 
 # Imprimindo a primeira linha de data_list para verificar se funcionou.
-print("Linha 0: ")
-print(data_list[0])
+# print("Linha 0: ")
+# print(data_list[0])
 # É o cabeçalho dos dados, para que possamos identificar as colunas.
 
 # Imprimindo a segunda linha de data_list, ela deveria conter alguns dados
-print("Linha 1: ")
-print(data_list[1])
+# print("Linha 1: ")
+# print(data_list[1])
 
 input("Aperte Enter para continuar...")
 # TAREFA 1
@@ -32,6 +32,14 @@ print("\n\nTAREFA 1: Imprimindo as primeiras 20 amostras")
 
 # Vamos mudar o data_list para remover o cabeçalho dele.
 data_list = data_list[1:]
+count = 0
+for sample in data_list:
+    if(count >= 20):
+        break
+    else:
+        print(str(sample))
+        count+=1
+
 
 # Nós podemos acessar as features pelo índice
 # Por exemplo: sample[6] para imprimir gênero, ou sample[-2]
@@ -41,7 +49,13 @@ input("Aperte Enter para continuar...")
 # TODO: Imprima o `gênero` das primeiras 20 linhas
 
 print("\nTAREFA 2: Imprimindo o gênero das primeiras 20 amostras")
-
+count = 0
+for sample in data_list:
+    if(count >= 20):
+        break
+    else:
+        print(str(sample[6]))
+        count+=1
 
 # Ótimo! Nós podemos pegar as linhas(samples) iterando com um for, e as colunas(features) por índices.
 # Mas ainda é difícil pegar uma coluna em uma lista. Exemplo: Lista com todos os gêneros
@@ -52,6 +66,8 @@ input("Aperte Enter para continuar...")
 def column_to_list(data, index):
     column_list = []
     # Dica: Você pode usar um for para iterar sobre as amostras, pegar a feature pelo seu índice, e dar append para uma lista
+    for d in data:
+        column_list.append(d[index])
     return column_list
 
 
@@ -72,6 +88,12 @@ input("Aperte Enter para continuar...")
 male = 0
 female = 0
 
+for d in data_list:
+    if d[-2] == "Male":
+        male +=1
+    elif d[-2] == "Female":
+        female +=1
+
 
 # Verificando o resultado
 print("\nTAREFA 4: Imprimindo quantos masculinos e femininos nós encontramos")
@@ -89,6 +111,11 @@ input("Aperte Enter para continuar...")
 def count_gender(data_list):
     male = 0
     female = 0
+    for d in data_list:
+        if d[-2] == "Male":
+            male += 1
+        elif d[-2] == "Female":
+            female += 1
     return [male, female]
 
 
@@ -107,8 +134,20 @@ input("Aperte Enter para continuar...")
 # TODO: Crie uma função que pegue o gênero mais popular, e retorne este gênero como uma string.
 # Esperamos ver "Masculino", "Feminino", ou "Igual" como resposta.
 def most_popular_gender(data_list):
-    answer = ""
-    return answer
+    male = 0
+    female = 0
+    for d in data_list:
+        if d[-2] == "Male":
+            male += 1
+        elif d[-2] == "Female":
+            female += 1
+    
+    if(male > female):
+        return "Masculino"
+    elif male < female:
+        return "Feminino"
+    else:
+        return "Igual"
 
 
 print("\nTAREFA 6: Qual é o gênero mais popular na lista?")
@@ -135,6 +174,28 @@ input("Aperte Enter para continuar...")
 # TAREFA 7
 # TODO: Crie um gráfico similar para user_types. Tenha certeza que a legenda está correta.
 print("\nTAREFA 7: Verifique o gráfico!")
+def count_types(data_list):
+    subscriber = 0
+    customer = 0
+    for d in data_list:
+        if d[-3] == "Subscriber":
+            subscriber += 1
+        elif d[-3] == "Customer":
+            customer += 1
+    return [subscriber, customer]
+
+gender_list = column_to_list(data_list, -2)
+types = ["Subscriber", "Customer"]
+quantity = count_types(data_list) #count_types (total)
+y_pos = list(range(len(types)))
+plt.bar(y_pos, quantity)
+plt.ylabel('Quantidade')
+plt.xlabel('Tipo')
+plt.xticks(y_pos, types)
+plt.title('Quantidade por Tipo')
+plt.show(block=True)
+
+
 
 
 input("Aperte Enter para continuar...")
@@ -143,7 +204,7 @@ input("Aperte Enter para continuar...")
 male, female = count_gender(data_list)
 print("\nTAREFA 8: Por que a condição a seguir é Falsa?")
 print("male + female == len(data_list):", male + female == len(data_list))
-answer = "Escreva sua resposta aqui."
+answer = "Pois há linhas onde as colunas Genero (Genre) é vazia."
 print("resposta:", answer)
 
 # ------------ NÃO MUDE NENHUM CÓDIGO AQUI ------------
@@ -155,12 +216,17 @@ input("Aperte Enter para continuar...")
 # TAREFA 9
 # TODO: Ache a duração de viagem Mínima, Máxima, Média, e Mediana.
 # Você não deve usar funções prontas parTODO isso, como max() e min().
-trip_duration_list = column_to_list(data_list, 2)
-min_trip = 0.
-max_trip = 0.
-mean_trip = 0.
+trip_duration_list = [int(x) for x in column_to_list(data_list, 2)]
+trip_duration_list.sort()
+min_trip = trip_duration_list[0]
+max_trip = trip_duration_list[-1]
+mean_trip = sum(trip_duration_list) / len(trip_duration_list)
 median_trip = 0.
-
+if len(trip_duration_list) % 2 == 0:
+    index = len(trip_duration_list) / 2
+    median_trip = (trip_duration_list[index] + trip_duration_list[index - 1]) / 2
+else:
+    median_trip = trip_duration_list[int(len(trip_duration_list) / 2)]
 
 print("\nTAREFA 9: Imprimindo o mínimo, máximo, média, e mediana")
 print("Min: ", min_trip, "Max: ", max_trip, "Média: ", mean_trip, "Mediana: ", median_trip)
@@ -176,7 +242,8 @@ input("Aperte Enter para continuar...")
 # TAREFA 10
 # Gênero é fácil porque nós temos apenas algumas opções. E quanto a start_stations? Quantas opções ele tem?
 # TODO: Verifique quantos tipos de start_stations nós temos, usando set()
-user_types = set()
+start_stations = column_to_list(data_list, 3)
+user_types = set(start_stations)
 
 print("\nTAREFA 10: Imprimindo as start stations:")
 print(len(user_types))
@@ -200,7 +267,7 @@ input("Aperte Enter para continuar...")
 
     #   """
 
-input("Aperte Enter para continuar...")
+# input("Aperte Enter para continuar...")
 # TAREFA 12 - Desafio! (Opcional)
 # TODO: Crie uma função para contar tipos de usuários, sem definir os tipos
 # para que nós possamos usar essa função com outra categoria de dados.

@@ -29,6 +29,6 @@ def standard_deviation(lst, population=True):
     print('--------------------------')
 
 
-s = [1, 5, 10, 3, 8, 12, 4]
+s = [21,15,21,22,23,20,18,17,18]
 standard_deviation(s)
 standard_deviation(s, population=False)

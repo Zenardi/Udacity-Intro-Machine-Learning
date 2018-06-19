@@ -281,7 +281,7 @@ def correlationPop(x, y, precision = 3):
 # === Examples of usage : python stats.py ===
 if __name__ == "__main__":
     
-    X = [5, 10, 3, 8, 12, 4, 1, 2, 8]
+    X = [15, 4, 3, 8, 15, 22, 7, 9, 2, 3, 3, 12, 6]
 
     print ("=== Stats library - Type help(stats.py) to see the available functions.")
     print ("Examples of usage these functions:")

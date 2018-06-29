@@ -12095,8 +12095,8 @@ Desvio padrão dos preços: $165,171.13
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>**Resposta: Quando RM = 6, o MEDV fica mais ou menos entre 396900 e 491400 e quando RM = 7 este valor aumenta (495600 a 732900). Com relação ao LSTAD ocorre o oposto. E por fim, não há relação direta da quantidade da razão de estudantes para professores nas escolas que influenci no valor do imóvel.</p>
 <p>-RM esta ligado ao aumento de MEDV pois casas com mais quartos são geralmente maiores e custam mais para construir, aumentando seu valor final.
--LSTAT diminui o valor de MEDV pois vizinhanças com mais pessoas de classe média vão ser capazes de pagar casas mais baratas.
--PTRATIO resulta a um decaimento de MEDV. Isso pode ser um indicativo que existem poucos professores para a quantidade de alunos na região. E pessoas nesta região trabalhando com professores não podem pagar por uma casas mais caras.</p>
+-LSTAT diminui o valor de MEDV pois vizinhanças com mais pessoas de classe baixa  são capazes de pagar casas mais baratas.
+-Não há relação direta da quantidade da razão de estudantes para professores nas escolas que influenci no valor do imóvel.</p>
 
 </div>
 </div>
@@ -12523,11 +12523,21 @@ Desvio padrão dos preços: $165,171.13
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>**Resposta: O K-fold é uma técnica de validação, ou seja, de avaliação do modelo (embora possa ser usado para gerar previsões também). O conjunto de treino é dividido em k subconjuntos e o treinamento do modelo é realizado com k-1 desses conjuntos, enquanto a avaliação é feita no conjunto restante. Para que seja uma medida robusta, esse processo será repetido k vezes, usando um dos k subconjuntos diferentes em cada uma das k vezes. Finalmente, nós podemos tirar a média da métrica de avaliação usada para determinar quão bom ficou o modelo. Também podemos tirar o desvio padrão para saber quão sensível está o modelo à diferentes conjuntos de treinamento.</p>
+<p>Em linhas gerais o funcionamento é assim:</p>
+<p>Randomicamente embaralhe o dataset
+Divida o dataset em K grupos
+Para cada grupo:
+   Pegue o grupo como um teste de espera ou teste de dados
+   Pegue os grupos restantes como um conjunto de dados de treinamento
+   Ajuste um modelo no conjunto de treinamento e avalie o conjunto de teste
+   Guarde a pontuação de avaliação e descarte o modelo
+Resuma a habilidade do modelo usando uma amostra de pontuações de avaliação do modelo</p>
 <p>Os benefícios de usar k-fold cross validation com grid search são:</p>
 <p>-A validação por si só, ou seja, avaliar o modelo utilizando um conjunto não visto em treinamento. Se otimizarmos os hiper-parâmetros usando uma métrica de avaliação no conjunto de teste, haveria um "leak" de informação do teste para o treino, o que não é bom, pois acaba superestimando a performance do modelo em dados não vistos. Portanto, validar usando k-fold já nos faz evitar esse cenário;
 -O k-fold produz uma métrica mais robusta pelo fato de tirar a média de diferentes conjuntos de validação. Como são usados todos os dados de treino como validação em algum momento, temos uma idéia melhor da robustez do modelo;
 -É uma boa alternativa para quando não se tem uma grande quantidade de dados e não poderia-se fazer um simples split entre treino, validação e teste com conjuntos suficientemente grandes.</p>
 <p>O que poderia dar errado ao utilizar busca em matriz sem um conjunto de validação cruzada é a incapacidade de comparação da performance dos modelos gerados com cada conjunto de hiperparâmetros, por não haver conjunto de dados de validacão disponível para uso pela busca em matriz (GridSearch).</p>
+<p>Os dados utilizados são divididos em dados de treinamento e dados de teste. O primeiro, contem um resultado (output) conhecido e o modelo aprender baseado nestes dados para poder generalizar e chegar em conclusões quando houver um input de novos dados. Para testar o conjunto de dados nós usamos o conjunto de testes, assim podemos validar o quão bem o modelo está aprendendo.</p>
 
 </div>
 </div>
